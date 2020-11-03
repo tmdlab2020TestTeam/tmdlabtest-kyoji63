@@ -23,35 +23,40 @@ void quick_sort(int left, int right){
 
   pivot = sort_num[(left + right) / 2]; // 基準値を配列の中央付近にとる
 
-  while(1){ 
-    /* pivotよりsort_numが大きくなるまでlを増加させる．*/
-    /* pivotよりsort_numが小さくなるまでrを減少させる．*/                                                        
+  while(1){
+    // pivotより大きい値が出るまでlを増加させる．
+    while (sort_num[l] < pivot)
+      l++;
+    // pivotより小さい値が出るまでrを減少させる．
+    while (pivot < sort_num[r])
+      r--;
       if (l >= r)               // i>=jなら無限ループから抜ける．
-        break;                 
-      tmp = sort_num[l];        // num[i]とnum[j]を交換する．
+        break;
+      tmp = sort_num[l];             // num[i]とnum[j]を交換する．
       sort_num[l] = sort_num[r];
-      /* sort_num[r]にキープしていたtmpを入れる */      
-      l++;                    
+      sort_num[r] = tmp;
+      l++;
       r--;
     }
     if (left < l-1)              // 基準値の左に2以上要素があれば左の配列をソートする．
-      quick_sort(left, l-1);     
+      quick_sort(left, l-1);
     if (r+1 < right)            // 基準値の右に2以上要素があれば右の配列をソートする．
-      quick_sort(r+1, right); 
+      quick_sort(r+1, right);
 }
 
 // 5で割った時余りが出るもの
 void remainder_number(int num[total_num]){
   printf("5で割った時余りが出るものを表示\n");
-  int count=0; // 対象の要素数を数える
-  /* for文で回して，条件を満たした場合sort_numに格納してcountを増やす(if文を書いて下さい)． */
-  for(int array_num=0; array_num<total_num; array_num++){ 
-      sort_num[count] = num[array_num];  // 条件を満たした時,格納してcountを増やす．
+  int count=0;
+  for(int array_num=0; array_num<total_num; array_num++){ // for文で回して，条件を満たした場合sort_numに格納してcountを増やす．
+    if(num[array_num]%5 != 0){
+      sort_num[count] = num[array_num];
       count++;
+    }
   }
-  /* total_numを上書きする(count)．*/
+  total_num = count;
   show_data(sort_num);
-  quick_sort(0, total_num-1); // 一番頭の配列番号，一番最後の配列番号
+  quick_sort(0, total_num-1); // 配列，一番頭の配列番号，一番最後の配列番号
 }
 
 int main(void){
