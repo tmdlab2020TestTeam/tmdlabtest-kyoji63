@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+//test
+//ファイルに変更を加えるとcommitの提案の通知が来る
+//変更
 int total_num = 20;
 
 // ターミナルにソートした結果を出力する
